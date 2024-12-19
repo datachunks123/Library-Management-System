@@ -1,0 +1,106 @@
+CREATE DATABASE LibraryDB;
+
+USE LibraryDB;
+
+
+CREATE TABLE Books (
+
+ BookID INT AUTO_INCREMENT PRIMARY KEY,
+
+ Title VARCHAR(255) NOT NULL,
+
+ Author VARCHAR(255) NOT NULL, 
+
+Genre VARCHAR(50), 
+
+PublishedYear INT,
+
+ CopiesAvailable INT NOT NULL
+
+ );
+
+
+CREATE TABLE Members (
+
+ MemberID INT AUTO_INCREMENT PRIMARY KEY,
+
+ FirstName VARCHAR(100) NOT NULL, 
+
+LastName VARCHAR(100) NOT NULL, 
+
+Email VARCHAR(150) UNIQUE,
+
+ PhoneNumber VARCHAR(15),
+
+ MembershipDate DATE NOT NULL DEFAULT CURRENT_DATE 
+);
+
+
+CREATE TABLE BorrowHistory (
+
+ BorrowID INT AUTO_INCREMENT PRIMARY KEY,
+
+ MemberID INT NOT NULL,
+
+ BookID INT NOT NULL, 
+
+BorrowDate DATE NOT NULL DEFAULT CURRENT_DATE,
+
+ ReturnDate DATE, 
+
+FOREIGN KEY (MemberID) REFERENCES Members(MemberID),
+
+ FOREIGN KEY (BookID) REFERENCES Books(BookID)
+
+ );
+
+
+INSERT INTO Books (Title, Author, Genre, PublishedYear, CopiesAvailable) 
+
+VALUES
+
+ ('To Kill a Mockingbird', 'Harper Lee', 'Fiction', 1960, 3),
+
+ ('1984', 'George Orwell', 'Dystopian', 1949, 5),
+
+ ('Moby Dick', 'Herman Melville', 'Adventure', 1851, 2),
+
+ ('The Great Gatsby', 'F. Scott Fitzgerald', 'Classic', 1925, 4);
+
+
+
+INSERT INTO Members (FirstName, LastName, Email, PhoneNumber)
+VALUES 
+
+('John', 'Doe', 'john.doe@example.com', '123-456-7890'),
+
+('Jane', 'Smith', 'jane.smith@example.com', '987-654-3210'),
+
+('Alice', 'Johnson', 'alice.j@example.com', '555-123-4567');
+
+
+INSERT INTO BorrowHistory (MemberID, BookID, BorrowDate, ReturnDate)
+
+VALUES 
+(1, 2, '2024-12-01', NULL),
+
+(2, 1, '2024-11-25', '2024-12-05');
+
+
+
+
+
+Queries
+
+SELECT * FROM Books;
+
+SELECT Title, CopiesAvailable 
+FROM Books 
+WHERE Title = '1984';
+
+
+SELECT CONCAT(FirstName, ' ', LastName)
+ AS FullName, Email, PhoneNumber 
+FROM Members;
+
+
