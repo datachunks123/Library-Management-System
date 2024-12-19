@@ -4,3 +4,8 @@ We’ll create three main tables:
 Books: Stores information about books in the library.
 Members: Stores details of library members.
 BorrowHistory: Tracks who borrowed which book and when.
+
+CREATE DATABASE LibraryDB;
+
+USE Librar
+
